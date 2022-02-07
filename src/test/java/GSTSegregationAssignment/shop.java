@@ -12,6 +12,17 @@ public class shop {
         ProductList = new ArrayList<>();
     }
 
+    public void addProduct(products... addproduct) {
+            ArrayList<products> gstProducts = new ArrayList<>();
+            for (products product : addproduct) {
+                ProductList.add(product);
+            }
+    }
+
+    public List<products> getAllProduct() {
+        return ProductList;
+    }
+
     //to get all products which are eligible for GST
     public ArrayList<products> getAllGstProducts(products... addproduct) {
         ArrayList<products> gstProducts = new ArrayList<>();

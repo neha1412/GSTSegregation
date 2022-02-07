@@ -1,6 +1,7 @@
 package GSTSegregationAssignment;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -8,18 +9,21 @@ import java.util.List;
 
 public class GSTTests {
 
+    shop product;
+
     @Test
     public void getGSTEligibleProducts(){
 
+        product= new shop();
+
         AC ac = new AC("LG", 20000.0f, "Black", 28);
         dishwasher dishwasher = new dishwasher("IFB", 40000.00f, "Silver", 28);
-        List<products> gstProducts = new ArrayList<>();
+        product.addProduct(ac,dishwasher);
 
-        shop shops= new shop();
-        //shops.getAllGstProducts(ac,dishwasher);
+        List<products> gstProducts = product.getAllGstProducts();
 
         //Assertion
-        for (products product1 :shops.getAllGstProducts(ac,dishwasher)) {
+        for (products product1 :gstProducts) {
 
             Assert.assertTrue(product1 instanceof AC || product1 instanceof dishwasher);
 
@@ -29,14 +33,15 @@ public class GSTTests {
 
     @Test
        public void productHavingPriceMoreThan2000(){
+        product = new shop();
         AC ac = new AC("LG", 20000.0f, "Black", 28);
         dishwasher dishwasher = new dishwasher("IFB", 40000.00f, "Silver", 28);
-        List<products> gstProducts = new ArrayList<>();
-        shop shops= new shop();
-        //shops.getGstProductsHavingPriceMoreThan2000();
+
+        product.addProduct(ac,dishwasher);
+        List<products> gstProducts = product.getGstProductsHavingPriceMoreThan2000();
 
         //Assertion
-        for (products product1 : shops.getGstProductsHavingPriceMoreThan2000()) {
+        for (products product1 : gstProducts) {
 
             Assert.assertTrue(product1 instanceof AC || product1 instanceof dishwasher);
 
@@ -46,11 +51,12 @@ public class GSTTests {
 
     @Test
     public void getTotalPriceOfGSTProductsIncludingGST(){
+        product= new shop();
         AC ac = new AC("LG", 20000.0f, "Black", 28);
         dishwasher dishwasher = new dishwasher("IFB", 40000.00f, "Silver", 28);
-        List<products> gstProducts = new ArrayList<>();
-        shop shops= new shop();
-        shops.toGetTotalPriceIncliudingGST(ac,dishwasher);
+
+        product.addProduct(ac,dishwasher);
+        float price = product.toGetTotalPriceIncliudingGST(ac,dishwasher);
 
         //Assertion
         List<products> product = new ArrayList<>();
